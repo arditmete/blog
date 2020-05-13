@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.css" />
+<script type="text/javascript" charset="utf8"
+	src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--- basic page needs
+    ================================================== -->
+<meta charset="utf-8">
+<title>Philosophy</title>
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- mobile specific metas
+    ================================================== -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+    ================================================== -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/vendor.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
+<!-- script
+    ================================================== -->
+<script type="text/javascript" src="js/modernizr.js"></script>
+<script type="text/javascript" src="js/pace.min.js"></script>
+
+<!-- favicons
+    ================================================== -->
+<link rel="shortcut icon" th:href="@{favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{favicon.ico}" type="image/x-icon">
+
+</head>
+
+<body id="top">
+
+	<!-- pageheader
+    ================================================== -->
+	<section class="s-pageheader s-pageheader--home">
+
+		<header class="header">
+			<div class="header__content row">
+
+				<div class="header__logo">
+					<a class="logo" href="/adminHome"
+						style="font-family: Segoe Print; color: white; font-size: 30px; text-decoration: none;">
+						MyBlog </a>
+				</div>
+
+				<a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+				<nav class="header__nav-wrap">
+
+					<h2 class="header__nav-heading h6">Site Navigation</h2>
+
+					<ul class="header__nav">
+						<li class="current"><a href="adminHome">Home</a></li>
+						<li class="current"><a href="/pendingPosts">Pending Posts</a></li>
+						<li class="current"><a href="/pendingComments">Pending
+								Comments</a></li>
+						<li class="current"><a href="/priority">Priority</a></li>
+						<li class="current"><a href="/users">Users</a></li>
+						<li><a href="/logout" title="">Log out</a></li>
+					</ul>
+					<a href="#0" title="Close Menu"
+						class="header__overlay-close close-mobile-menu">Close</a>
+
+				</nav>
+				<!-- end header__nav-wrap -->
+
+			</div>
+			<!-- header-content -->
+		</header>
+		<!-- header -->
+	</section>
+	<!-- end s-pageheader -->
+	<section>
+		<div class="row masonry-wrap">
+			<div class="masonry">
+				<div class="grid-sizer"></div>
+				<div th:each="posts :${verifiedPosts}">
+					<article class="masonry__brick entry format-standard"
+						data-aos="fade-up">
+						<div class="entry__thumb">
+						<img
+								th:if="*{posts.data != null}" width="320" height="300"
+								th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(posts.data)}}" />
+						</div>
+						<div class="entry__text">
+							<div class="entry__header">
+								<div class="entry__date" th:text="${posts.postCreated}">
+								</div>
+								<h1 class="entry__title" th:text="${posts.postName}">
+								</h1>
+							</div>
+							<div class="entry__excerpt">
+								<p th:text="${posts.postSummary}"></p>
+							</div>
+							<div class="entry__meta">
+								<br><br> <span class="entry__meta-links" th:inline="text">Priority: [[${posts.priority}]]
+								</span>
+							</div>
+							<br> <br>
+							<div class="btn-group btn-group-toggle">
+								<label class="btn btn-secondary active"> <a
+									th:href="@{/superHighPost/{postId}(postId=${posts.postId})}">Post
+										1</a>
+								</label> <label class="btn btn-secondary active"> <a
+									th:href="@{/highPost/{postId}(postId=${posts.postId})}">Post
+										2</a>
+								</label> <label class="btn btn-secondary active"> <a
+									th:href="@{/mediumPost/{postId}(postId=${posts.postId})}">Post
+										3</a></label>
+							</div>
+						</div>
+					</article>
+				</div>
+			</div>
+			<!-- end popular_posts -->
+		</div>
+	</section>
+	<!-- Java Script
+    ================================================== -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+
+</body>
+
+</html>

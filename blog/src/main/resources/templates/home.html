@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<!--- basic page needs
+    ================================================== -->
+<meta charset="utf-8">
+<title>Philosophy</title>
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- mobile specific metas
+    ================================================== -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.css" />
+<script type="text/javascript" charset="utf8"
+	src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<!-- CSS
+    ================================================== -->
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/vendor.css">
+<link rel="stylesheet" href="css/main.css">
+
+<!-- script
+    ================================================== -->
+<script src="js/modernizr.js"></script>
+<script src="js/pace.min.js"></script>
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- favicons
+    ================================================== -->
+<!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
+<!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+</head>
+
+<body id="top">
+
+	<!-- pageheader
+    ================================================== -->
+	<section class="s-pageheader s-pageheader--home">
+
+		<header class="header">
+			<div class="header__content row">
+
+				<div class="header__logo">
+					<a class="logo" href="/home"
+						style="font-family: Segoe Print; color: white; font-size: 30px; text-decoration: none;">
+						MyBlog </a>
+				</div>
+				<div class="comment__avatar" th:each="users : ${userAuth}">
+					<img th:if="*{users.data != null}" width="50" height="50"
+						class="avatar"
+						th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(users.data)}}"
+						alt="">
+					<div th:text="${users.name}"
+						style="font-family: Segoe Print; color: white; font-size: 20px; text-decoration: none;"></div>
+				</div>
+				<a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+				<nav class="header__nav-wrap">
+					<h2 class="header__nav-heading h6">Site Navigation</h2>
+					<ul class="header__nav">
+						<li class="current"><a href="/home">Home</a></li>
+						<li class="has-children"><a href="#0" title="">Categories</a>
+							<ul class="sub-menu">
+								<li th:each="category : ${categories}"><a
+									th:href="@{/openCategory/{Id}(Id=${category.categoryId})}"
+									th:text="${category.categoryName}"></a></li>
+							</ul></li>
+						<li class="current"><a th:href="@{/myProfile}">My profile</a></li>
+						<li class="current"><a th:href="@{/logout}">Log out</a></li>
+					</ul>
+					<a href="#0" title="Close Menu"
+						class="header__overlay-close close-mobile-menu">Close</a>
+				</nav>
+				<!-- end header__nav-wrap -->
+			</div>
+			<!-- header-content -->
+		</header>
+		<!-- header -->
+		<div class="pageheader-content row">
+			<div class="col-full">
+
+				<div class="featured">
+
+					<div class="featured__column featured__column--big">
+						<div class="entry" th:each="post : ${superHighPost}">
+							<img th:if="*{post.data != null}"
+								th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(post.data)}}" />
+							<div class="entry__content">
+								<span class="entry__category"
+									th:each="categories,iterStat : ${post.category}"><a
+									th:href="@{/openCategory/{Id}(Id=${categories.categoryId})}"
+									th:text="${categories.categoryName}"></a></span>
+								<h1>
+									<a th:href="@{/openUserPost/{postId}(postId=${post.postId})}"
+										th:text="${post.postName}"></a>
+								</h1>
+								<div class="entry__info"
+									th:each="userPost,iterStat : ${post.user}">
+									<ul class="entry__meta">
+										<li th:text="${userPost.name}"></li>
+										<li th:text="${post.postCreated}"></li>
+									</ul>
+									<img th:if="*{userPost.data != null}" width="50" height="50" style="border-radius: 30px;"
+										class="avatar"
+										th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(userPost.data)}}"
+										alt="">
+
+								</div>
+
+							</div>
+							<!-- end entry__content -->
+						</div>
+						<!-- end entry -->
+					</div>
+					<!-- end featured__big -->
+
+					<div class="featured__column featured__column--small">
+
+						<div class="entry" th:each="postHigh : ${highPost}">
+							<img th:if="*{postHigh.data != null}"
+								th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(postHigh.data)}}" />
+
+							<div class="entry__content">
+								<span class="entry__category"
+									th:each="categories,iterStat : ${postHigh.category}"><a
+									th:href="@{/openCategory/{Id}(Id=${categories.categoryId})}"
+									th:text="${categories.categoryName}"></a></span>
+
+								<h1>
+									<a
+										th:href="@{/openUserPost/{postId}(postId=${postHigh.postId})}"
+										th:text="${postHigh.postName}"></a>
+								</h1>
+
+								<div class="entry__info"
+									th:each="userPostHigh,iterStat : ${postHigh.user}">
+									<ul class="entry__meta">
+										<li th:text="${userPostHigh.name}"></li>
+										<li
+											th:href="@{/openUserPost/{postId}(postId=${postHigh.postId})}"
+											th:text="${postHigh.postCreated}"></li>
+									</ul>
+								</div>
+							</div>
+							<!-- end entry__content -->
+
+						</div>
+						<!-- end entry -->
+
+						<div class="entry" th:each="postMedium : ${mediumPost}">
+							<img th:if="*{postMedium.data != null}"
+								th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(postMedium.data)}}" />
+
+							<div class="entry__content">
+								<span class="entry__category"
+									th:each="categories,iterStat : ${postMedium.category}"><a
+									th:href="@{/openCategory/{Id}(Id=${categories.categoryId})}"
+									th:text="${categories.categoryName}"></a></span>
+
+								<h1>
+									<a
+										th:href="@{/openUserPost/{postId}(postId=${postMedium.postId})}"
+										th:text="${postMedium.postName}"></a>
+								</h1>
+
+								<div class="entry__info"
+									th:each="userPostMedium,iterStat : ${postMedium.user}">
+									<ul class="entry__meta">
+										<li th:text="${userPostMedium.name}"></li>
+										<li
+											th:href="@{/openUserPost/{postId}(postId=${postMedium.postId})}"
+											th:text="${postMedium.postCreated}"></li>
+									</ul>
+								</div>
+							</div>
+							<!-- end entry__content -->
+
+						</div>
+						<!-- end entry -->
+
+					</div>
+					<!-- end featured__small -->
+				</div>
+				<!-- end featured -->
+
+			</div>
+			<!-- end col-full -->
+		</div>
+		<!-- end pageheader-content row -->
+		s
+
+	</section>
+	<!-- end s-pageheader -->
+
+	<!-- s-content
+    ================================================== -->
+	<section class="s-content">
+
+		<div class="row masonry-wrap">
+			<div class="masonry">
+
+				<div class="grid-sizer"></div>
+
+				<div th:each="posts :${post}">
+
+					<article class="masonry__brick entry format-standard"
+						data-aos="fade-up">
+
+						<div class="entry__thumb">
+							<a th:href="@{/openUserPost/{postId}(postId=${posts.postId})}"
+								class="entry__thumb-link"> <img
+								th:if="*{posts.data != null}" width="320" height="300"
+								th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(posts.data)}}" />
+							</a>
+						</div>
+
+						<div class="entry__text">
+							<div class="entry__header">
+								<div class="entry__date">
+									<a th:href="@{/openUserPost/{postId}(postId=${posts.postId})}"
+										th:text="${posts.postCreated}"></a>
+								</div>
+								<h1 class="entry__title">
+									<a th:href="@{/openUserPost/{postId}(postId=${posts.postId})}"
+										th:text="${posts.postName}"></a>
+								</h1>
+
+							</div>
+							<div class="entry__excerpt">
+								<p th:text="${posts.postSummary}"></p>
+							</div>
+							<div class="entry__meta">
+								<span class="entry__meta-links"
+									th:each="categories,iterStat : ${posts.category}"> <a
+									th:href="@{/openCategory/{Id}(Id=${categories.categoryId})}"
+									th:text="${categories.categoryName}"></a>
+								</span>
+							</div>
+							<div class="entry__excerpt"
+								th:each="users,iterStat : ${posts.user}">
+								<p th:inline="text">Posted by: [[${users.name}]]</p>
+							</div>
+						</div>
+
+					</article>
+				</div>
+			</div>
+			<!-- end popular_posts -->
+		</div>
+	</section>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+</body>
+
+</html>

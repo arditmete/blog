@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Category</title>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="../static/ajax.js"
+	th:src="@{/main.js}"></script>
+<script type="text/javascript" src="../static/something.js"
+	th:src="@{/main.js}"></script>
+<script th:src="@{/static/ajax.js}"></script>
+<script th:src="@{/static/something.js}"></script>
+<link rel="stylesheet" th:href="@{/css/base.css}" />
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.css" />
+<script type="text/javascript" charset="utf8"
+	src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<style>
+@import 'https://fonts.googleapis.com/css?family=Montserrat|Open+Sans';
+
+.navbar-brand {
+	font-family: 'Montserrat', sans-serif;
+	text-transform: uppercase
+}
+
+.navbar .nav {
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	font-size: 0.8rem
+}
+
+.navbar-inverse {
+	background-color: #003300
+}
+
+.navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>li>a:hover,
+	.navbar-inverse .navbar-nav>li>a:focus {
+	background-color: #002200
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.open>a,
+	.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover,
+	.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover,
+	.navbar-inverse .navbar-nav>.open>a:focus {
+	background-color: #003300
+}
+
+.dropdown-menu {
+	background-color: #006B00
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+	background-color: #002200
+}
+
+.navbar-inverse {
+	background-image: none;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+	background-image: none;
+}
+
+.navbar-inverse {
+	border-color: #003300
+}
+
+.navbar-inverse .navbar-brand {
+	color: #FFFFFF
+}
+
+.navbar-inverse .navbar-brand:hover {
+	color: #FFCC00
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: #FFFFFF
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus
+	{
+	color: #FFCC00
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.open>a,
+	.navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus
+	{
+	color: #FFCC00
+}
+
+.navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus
+	{
+	color: #FFCC00
+}
+
+.dropdown-menu>li>a {
+	color: #FFFFFF
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+	color: #FFCC00
+}
+
+.navbar-inverse .navbar-nav>.dropdown>a .caret {
+	border-top-color: #FFFFFF
+}
+
+.navbar-inverse .navbar-nav>.dropdown>a:hover .caret {
+	border-top-color: #FFFFFF
+}
+
+.navbar-inverse .navbar-nav>.dropdown>a .caret {
+	border-bottom-color: #FFFFFF
+}
+
+.navbar-inverse .navbar-nav>.dropdown>a:hover .caret {
+	border-bottom-color: #FFFFFF
+}
+
+section {
+	width: 100%;
+	float: left;
+}
+
+.banner-section {
+	background-image:
+		url("https://static.pexels.com/photos/373912/pexels-photo-373912.jpeg");
+	background-size: cover;
+	height: 380px;
+	left: 0;
+	position: absolute;
+	top: 0;
+	background-position: 0;
+}
+
+.post-title-block {
+	padding: 100px 0;
+}
+
+.post-title-block h1 {
+	color: #fff;
+	font-size: 85px;
+	font-weight: bold;
+	text-transform: capitalize;
+}
+
+.post-title-block li {
+	font-size: 20px;
+	color: #fff;
+}
+
+.image-block {
+	float: left;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.footer-link {
+	float: left;
+	width: 100%;
+	background: #222222;
+	text-align: center;
+	padding: 30px;
+}
+
+.footer-link a {
+	color: #A9FD00;
+	font-size: 18px;
+	text-transform: uppercase;
+}
+
+.list {
+	background-color: blue;
+	padding: 8px;
+	color: white;
+	font-family: 'Crete Round';
+	font-size: 22px;
+}
+
+.tables {
+	position: absolute;
+	left: 30%;
+	width: 40%;
+	top: 30%;
+	width: 40%;
+}
+
+tbody {
+	background-color: #e4f0f5;
+}
+</style>
+<script>
+        $(document).ready(function ($) {
+            $("#edit-form").submit(function (event) {
+                event.preventDefault();
+                postEdit();
+            });
+        });
+    </script>
+</head>
+<body>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav"
+		role="banner">
+		<div class="container">
+			<div class="navbar-header">
+				<button class="navbar-toggle" type="button" data-toggle="collapse"
+					data-target=".bs-navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="/autorHome" class="navbar-brand">MyBlog</a>
+			</div>
+			<nav class="collapse navbar-collapse bs-navbar-collapse"
+				role="navigation">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/autorHome">Home</a></li>
+					<li><a href="/categoryAuthor">Categories</a></li>
+					<li><a href="/logout">Log Out</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<br>
+	<br>
+	<h2
+		style="position: absolute; left: 45%; top: 10%; font-weight: bold; font-family: 'Crete Round'; font-size: 22px;">Categories</h2>
+
+
+
+
+	<div class="tables">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="categories : ${categories}">
+					<td th:text="${categories.sorting}"></td>
+					<td th:text="${categories.categoryName}"></td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

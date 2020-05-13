@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<!--- basic page needs
+    ================================================== -->
+<meta charset="utf-8">
+<meta name="keywords">
+<title>Philosophy</title>
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- Include JS file. -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.css" />
+<script type="text/javascript" charset="utf8"
+	src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/vendor.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
+
+<!-- script
+    ================================================== -->
+<script th:src="@{/js/modernizr.js}"></script>
+<script th:src="@{/js/pace.min.js}"></script>
+
+<!-- favicons
+    ================================================== -->
+<!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
+<!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+</head>
+
+<body id="top">
+
+	<!-- pageheader
+    ================================================== -->
+	<section class="s-pageheader s-pageheader--home">
+
+		<header class="header">
+			<div class="header__content row">
+
+				<div class="header__logo">
+					<a class="logo" href="/autorHome"
+						style="font-family: Segoe Print; color: white; font-size: 30px; text-decoration: none;">
+						MyBlog </a>
+				</div>
+
+				<a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+				<nav class="header__nav-wrap">
+
+					<h2 class="header__nav-heading h6">Site Navigation</h2>
+
+					<ul class="header__nav">
+						<li class="current"><a href="/home">Home</a></li>
+						<li class="has-children"><a href="#0" title="">Categories</a>
+							<ul class="sub-menu">
+								<li th:each="category : ${categories}"><a
+									th:href="@{/openCategory/{Id}(Id=${category.categoryId})}"
+									th:text="${category.categoryName}"></a></li>
+							</ul></li>
+						<li class="current"><a href="myProfile">My profile</a></li>
+						<li><a class="current" th:href="@{/logout}">Log out</a></li>
+					</ul>
+
+					<a href="#0" title="Close Menu"
+						class="header__overlay-close close-mobile-menu">Close</a>
+
+				</nav>
+				<!-- end header__nav-wrap -->
+
+			</div>
+
+		</header>
+
+	</section>
+	<section class="s-content">
+		<div class="row masonry-wrap" th:utext="${postText}"
+			style="padding-left: 10%; padding-right: 10%;"></div>
+
+
+		<p class="s-content__tags">
+			Post Tags <span class="s-content__tag-list"
+				th:each="category : ${categories}"> <a
+				th:href="@{/openCategory/{Id}(Id=${category.categoryId})}"
+				th:text="${category.categoryName}"></a>
+			</span>
+		</p>
+		<!-- end s-content__tags -->
+		<div class="comments-wrap">
+
+			<div id="comments" class="row">
+				<div class="col-full">
+
+					<h3 class="h2">Comments</h3>
+
+					<!-- commentlist -->
+					<ol class="commentlist">
+
+						<li class="depth-1 comment" th:each="comments :${comment}">
+							<div class="comment__avatar"	th:each="users,iterStat : ${comments.user}">
+								<img th:if="*{users.data != null}" width="50" height="50"
+									class="avatar"
+									th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(users.data)}}"
+									alt="">
+							</div>
+
+							<div class="comment__content">
+
+								<div class="comment__info"
+									th:each="users,iterStat : ${comments.user}">
+									<cite th:text="${users.name}"></cite>
+
+									<div class="comment__meta"
+										th:each="post,iterStat : ${comments.post}">
+										<time class="comment__time" th:text="${post.postCreated}"></time>
+									</div>
+								</div>
+
+								<div class="comment__text">
+									<p th:text="${comments.commentText}"></p>
+								</div>
+
+							</div>
+						</li>
+						<!-- end comment level 1 -->
+
+
+					</ol>
+					<!-- end commentlist -->
+
+
+					<!-- respond
+                    ================================================== -->
+					<div class="respond">
+
+						<h3 class="h2">Add Comment</h3>
+
+						<form th:action="@{/addComment}" method="post">
+							<fieldset>
+
+
+								<div class="message form-field">
+									<textarea name="cMessage" id="cMessage" class="full-width"
+										placeholder="Your Message" th:value="${commentText}"
+										th:name="commentText"></textarea>
+								</div>
+
+								<button type="submit" th:value="${postId}" th:name="postId"
+									class="submit btn--primary btn--large full-width">Submit</button>
+
+							</fieldset>
+						</form>
+						<!-- end form -->
+
+					</div>
+					<!-- end respond -->
+
+				</div>
+				<!-- end col-full -->
+
+			</div>
+			<!-- end row comments -->
+		</div>
+		<!-- end comments-wrap -->
+	</section>
+	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/plugins.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

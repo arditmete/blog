@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<!--- basic page needs
+    ================================================== -->
+<meta charset="utf-8">
+<title>Categories</title>
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- mobile specific metas
+    ================================================== -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.css" />
+<script type="text/javascript" charset="utf8"
+	src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<!-- CSS
+    ================================================== -->
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/vendor.css">
+<link rel="stylesheet" href="css/main.css">
+
+<!-- script
+    ================================================== -->
+<script src="js/modernizr.js"></script>
+<script src="js/pace.min.js"></script>
+
+<!-- favicons
+    ================================================== -->
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+</head>
+
+<body id="top">
+
+	<!-- pageheader
+    ================================================== -->
+	<section class="s-pageheader s-pageheader--home">
+
+		<header class="header">
+			<div class="header__content row">
+
+				<div class="header__logo">
+					<a class="logo" href="/adminHome"
+						style="font-family: Segoe Print; color: white; font-size: 30px; text-decoration: none;">
+						MyBlog </a>
+				</div>
+
+				<a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+				<nav class="header__nav-wrap">
+					<h2 class="header__nav-heading h6">Site Navigation</h2>
+					<ul class="header__nav">
+						<li class="current"><a href="adminHome">Home</a></li>
+						<li class="current"><a href="/pendingPosts">Pending Posts</a></li>
+						<li class="current"><a href="/pendingComments">Pending
+								Comments</a></li>
+						<li class="current"><a href="/priority">Priority</a></li>
+						<li class="current"><a href="/users">Users</a></li>
+						<li><a href="/logout" title="">Log out</a></li>
+					</ul>
+					<a href="#0" title="Close Menu"
+						class="header__overlay-close close-mobile-menu">Close</a>
+				</nav>
+				<!-- end header__nav-wrap -->
+			</div>
+			<!-- header-content -->
+		</header>
+		<!-- header -->
+	</section>
+	<!-- end s-pageheader -->
+
+	<!-- s-content
+    ================================================== -->
+	<section class="s-content">
+
+		<div class="tables">
+			<form th:action="@{/controlUser}" method="post">
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Id</th>
+							<th scope="col">Name</th>
+							<th scope="col">LastName</th>
+							<th scope="col">Email</th>
+							<th scope="col">Role</th>
+							<th scope="col">Make Admin</th>
+							<th scope="col">Make Author</th>
+							<th scope="col">Make User</th>
+
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr th:each="users : ${user}">
+							<td th:text="${users.userId}"></td>
+							<td th:text="${users.name}"></td>
+							<td th:text="${users.lastName}"></td>
+							<td th:text="${users.email}"></td>
+							<td class="entry__meta-links"
+								th:each="role,iterStat : ${users.roles}" th:text="${role.role}"></td>
+							<td><button class="btn btn-primary" th:name="adminId"
+									th:value="${users.userId}">Make Admin</button></td>
+							<td><button class="btn btn-primary" th:name="authorId"
+									th:value="${users.userId}">Make Author</button></td>
+							<td><button class="btn btn-primary" th:name="userId"
+									th:value="${users.userId}">Make User</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</section>
+	<!-- end s-extra -->
+
+
+
+
+	<!-- preloader
+    ================================================== -->
+	<div id="preloader">
+		<div id="loader">
+			<div class="line-scale">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Java Script
+    ================================================== -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+
+</body>
+
+</html>

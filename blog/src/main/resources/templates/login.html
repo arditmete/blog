@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<!--- basic page needs
+    ================================================== -->
+<meta charset="utf-8">
+<title>Philosophy</title>
+<meta name="description" content="">
+<meta name="author" content="">
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<script
+	src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script"
+	rel="stylesheet">
+<link
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<!-- mobile specific metas
+    ================================================== -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+    ================================================== -->
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/vendor.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/login.css">
+<!-- script
+    ================================================== -->
+<script src="js/modernizr.js"></script>
+<script src="js/pace.min.js"></script>
+
+<!-- favicons
+    ================================================== -->
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+</head>
+
+<body id="top">
+	<section class="s-pageheader s-pageheader--home">
+
+		<header class="header">
+
+				<div class="header__logo">
+					<a class="logo" href="/login"
+						style="position:absolute;left:45%;  font-family: Segoe Print; color: white; font-size: 30px; text-decoration: none;">
+						MyBlog </a>
+				</div>
+
+		</header>
+		<div class="row">
+			<div class="col-md-5 mx-auto">
+				<div id="first">
+					<div class="myform form ">
+						<div class="logo mb-3">
+							<div class="col-md-12 text-center">
+								<h1>Login</h1>
+							</div>
+						</div>
+						<form th:action="@{/login}" method="POST" class="form-signin">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Email address</label> <input
+									type="email" name="email" class="form-control" id="email"
+									aria-describedby="emailHelp" placeholder="Enter email">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Password</label> <input
+									type="password" name="password" id="password"
+									class="form-control" aria-describedby="emailHelp"
+									placeholder="Enter Password">
+							</div>
+							<div class="col-md-12 text-center ">
+								<button type="submit"
+									class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+							</div>
+							<div align="center" th:if="${param.error}">
+								<p style="font-size: 20; color: gray;">Email or Password is
+									invalid.</p>
+							</div>
+							<div class="form-group">
+								<p class="text-center">
+									<a href="/forgotPassword" id="signup">Forgot Password?</a>
+								</p>
+							</div>
+							<div class="form-group">
+								<p class="text-center">
+									Don't have account? <a href="/register" id="signup">Sign up
+										here</a>
+								</p>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.css" />
+<script type="text/javascript" charset="utf8"
+	src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--- basic page needs
+    ================================================== -->
+<meta charset="utf-8">
+<title>Philosophy</title>
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- mobile specific metas
+    ================================================== -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+    ================================================== -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/vendor.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
+<!-- script
+    ================================================== -->
+<script type="text/javascript" src="js/modernizr.js"></script>
+<script type="text/javascript" src="js/pace.min.js"></script>
+
+<!-- favicons
+    ================================================== -->
+<link rel="shortcut icon" th:href="@{favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{favicon.ico}" type="image/x-icon">
+
+</head>
+
+<body id="top">
+
+	<!-- pageheader
+    ================================================== -->
+	<section class="s-pageheader s-pageheader--home">
+
+		<header class="header">
+			<div class="header__content row">
+
+				<div class="header__logo">
+					<a class="logo" href="/adminHome"
+						style="font-family: Segoe Print; color: white; font-size: 30px; text-decoration: none;">
+						Admin Dashboard </a>
+				</div>
+
+				<a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+				<nav class="header__nav-wrap">
+
+					<h2 class="header__nav-heading h6">Site Navigation</h2>
+
+					<ul class="header__nav">
+						<li class="current"><a href="/adminHome" title="">Home</a></li>
+						<li class="current"><a href="/pendingPosts">Pending Posts</a></li>
+						<li class="has-children"><a href="#0" title="">Settings</a>
+							<ul class="sub-menu">
+								<li><a href="/createAdmin">Create Admin</a></li>
+								<li><a href="/createAuthor">Create Author</a></li>
+							</ul></li>
+
+						<li><a href="/logout" title="">Log out</a></li>
+					</ul>
+
+					<a href="#0" title="Close Menu"
+						class="header__overlay-close close-mobile-menu">Close</a>
+
+				</nav>
+				<!-- end header__nav-wrap -->
+
+			</div>
+			<!-- header-content -->
+		</header>
+		<!-- header -->
+		<div class="container-fluid">
+			<div class="row col-lg-4 col-lg-offset-4"
+				style="margin-top: 80px; background-color: #fff; padding: 20px; border: solid 1px #ddd;">
+
+				<form th:action="@{/edit/{categoryId}}" method="POST"
+					th:object="${category}">
+					<h3 class="form-signin-heading" th:text="Edit"></h3>
+					<br /> <input type="text" id="name" name="categoryEditName"
+						th:placeholder="Name" class="form-control" /> <br />
+					<button class="btn btn-lg btn-primary" name="Submit" type="Submit"
+						th:text="Save" style="margin-right: 10px;"
+						th:value="${categoryId}" th:name="update"></button>
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- end s-pageheader -->
+
+
+
+
+
+	<!-- Java Script
+    ================================================== -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+
+</body>
+
+</html>

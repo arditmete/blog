@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<!--- basic page needs
+    ================================================== -->
+<meta charset="utf-8">
+<title>Philosophy</title>
+<meta name="description" content="">
+<meta name="author" content="">
+<script
+	src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
+	th:referrerpolicy="origin"></script>
+<script>tinymce.init({selector:'myTextarea'});</script>
+<!-- mobile specific metas
+    ================================================== -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="../static/ajax.js"
+	th:src="@{/main.js}"></script>
+<script type="text/javascript" src="../static/something.js"
+	th:src="@{/main.js}"></script>
+<script th:src="@{/static/ajax.js}"></script>
+<script th:src="@{/static/something.js}"></script>
+<link rel="stylesheet" th:href="@{/css/base.css}" />
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.css" />
+<script type="text/javascript" charset="utf8"
+	src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<!-- CSS
+    ================================================== -->
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/vendor.css">
+<link rel="stylesheet" href="css/main.css">
+
+<!-- script
+    ================================================== -->
+<script src="js/modernizr.js"></script>
+<script src="js/pace.min.js"></script>
+
+<!-- favicons
+    ================================================== -->
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+</head>
+
+<body id="top">
+
+	<!-- pageheader
+    ================================================== -->
+	<section class="s-pageheader s-pageheader--home">
+
+		<header class="header">
+			<div class="header__content row">
+
+				<div class="header__logo">
+					<a class="logo" href="/autorHome"
+						style="font-family: Segoe Print; color: white; font-size: 30px; text-decoration: none;">
+						MyBlog </a>
+				</div>
+				<div class="comment__avatar" th:each="users : ${author}">
+					<img th:if="*{author.data != null}" width="50" height="50"
+						class="avatar"
+						th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(author.data)}}"
+						alt="">
+					<div th:text="${author.name}"
+						style="font-family: Segoe Print; color: white; font-size: 20px; text-decoration: none;"></div>
+				</div>
+				<a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+				<nav class="header__nav-wrap">
+
+					<h2 class="header__nav-heading h6">Site Navigation</h2>
+
+					<ul class="header__nav">
+						<li class="current"><a href="/autorHome" title="">Home</a></li>
+						<li class="current"><a href="/pendingAuthorPosts">Pending
+								Posts</a></li>
+						<li class="has-children"><a href="#0" title="">Categories</a>
+							<ul class="sub-menu">
+								<li th:each="category : ${categories}"><a
+									th:href="@{/openAuthorCategory/{Id}(Id=${category.categoryId})}"
+									th:text="${category.categoryName}"></a></li>
+							</ul></li>
+						<li><a th:href="@{/logout}">Log out</a></li>
+					</ul>
+
+					<a href="#0" title="Close Menu"
+						class="header__overlay-close close-mobile-menu">Close</a>
+
+				</nav>
+				<!-- end header__nav-wrap -->
+
+			</div>
+			<!-- header-content -->
+		</header>
+		<!-- header -->
+
+
+		<div class="pageheader-content row">
+			<div class="col-full">
+
+				<div class="featured">
+
+					<div class="featured__column featured__column--big">
+						<div class="entry" th:each="post : ${superHighPost}">
+							<img th:if="*{post.data != null}"
+								th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(post.data)}}" />
+
+							<div class="entry__content">
+								<span class="entry__category"
+									th:each="categories,iterStat : ${post.category}"><a
+									th:href="@{/openCategory/{Id}(Id=${categories.categoryId})}"
+									th:text="${categories.categoryName}"></a></span>
+								<h1>
+									<a th:href="@{/openAuthorPost/{postId}(postId=${post.postId})}"
+										th:text="${post.postName}"></a>
+								</h1>
+								<div class="entry__info"
+									th:each="authorPost,iterStat : ${post.user}">
+									<img th:if="*{authorPost.data != null}" width="50" height="50" style="border-radius: 30px;"
+										th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(authorPost.data)}}"
+										alt="">
+									<ul class="entry__meta">
+										<li th:text="${authorPost.name}"></li>
+										<li
+											th:href="@{/openAuthorPost/{postId}(postId=${post.postId})}"
+											th:text="${post.postCreated}"></li>
+									</ul>
+								</div>
+							</div>
+							<!-- end entry__content -->
+
+						</div>
+						<!-- end entry -->
+					</div>
+					<!-- end featured__big -->
+
+					<div class="featured__column featured__column--small">
+
+						<div class="entry" th:each="postHigh : ${highPost}">
+							<img th:if="*{postHigh.data != null}"
+								th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(postHigh.data)}}" />
+
+							<div class="entry__content">
+								<span class="entry__category"
+									th:each="categories,iterStat : ${postHigh.category}"><a
+									th:href="@{/openAuthorCategory/{Id}(Id=${categories.categoryId})}"
+									th:text="${categories.categoryName}"></a></span>
+
+								<h1>
+									<a
+										th:href="@{/openAuthorPost/{postId}(postId=${postHigh.postId})}"
+										th:text="${postHigh.postName}"></a>
+								</h1>
+
+								<div class="entry__info"
+									th:each="authorPostHigh,iterStat : ${postHigh.user}">
+									<ul class="entry__meta">
+										<li th:text="${authorPostHigh.name}"></li>
+										<li
+											th:href="@{/openAuthorPost/{postId}(postId=${postHigh.postId})}"
+											th:text="${postHigh.postCreated}"></li>
+									</ul>
+								</div>
+							</div>
+							<!-- end entry__content -->
+
+						</div>
+						<!-- end entry -->
+
+						<div class="entry" th:each="postMedium : ${mediumPost}">
+							<img th:if="*{postMedium.data != null}"
+								th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(postMedium.data)}}" />
+
+							<div class="entry__content">
+								<span class="entry__category"
+									th:each="categories,iterStat : ${postMedium.category}"><a
+									th:href="@{/openAuthorCategory/{Id}(Id=${categories.categoryId})}"
+									th:text="${categories.categoryName}"></a></span>
+
+								<h1>
+									<a
+										th:href="@{/openAuthorPost/{postId}(postId=${postMedium.postId})}"
+										th:text="${postMedium.postName}"></a>
+								</h1>
+
+								<div class="entry__info"
+									th:each="authorPostMedium,iterStat : ${postMedium.user}">
+									<ul class="entry__meta">
+										<li th:text="${authorPostMedium.name}"></li>
+										<li
+											th:href="@{/openAuthorPost/{postId}(postId=${postMedium.postId})}"
+											th:text="${postMedium.postCreated}"></li>
+									</ul>
+								</div>
+							</div>
+							<!-- end entry__content -->
+
+						</div>
+						<!-- end entry -->
+
+					</div>
+					<!-- end featured__small -->
+				</div>
+				<!-- end featured -->
+
+			</div>
+			<!-- end col-full -->
+		</div>
+		<!-- end pageheader-content row -->
+
+	</section>
+	<!-- end s-pageheader -->
+
+	<button type="button" class="btn btn-primary"
+		style="position: absolute; top: 20%; left: 45%;" data-toggle="modal"
+		data-target="#addModal">Add New Post</button>
+
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<form autocomplete="off" action="#" th:action="@{/addNewPost}"
+			method="post" enctype="multipart/form-data">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">New Post</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Title:</label>
+							<input type="text" class="form-control" th:name="postName"
+								placeholder="Title" id="recipient-name" required>
+						</div>
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Summary
+								Text:</label> <input type="text" class="form-control"
+								placeholder="Summary" th:name="postSummary" id="recipient-name"
+								required>
+						</div>
+
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Icon:</label>
+							<input class="btn btn-primary" type="file" name="file"
+								placeholder="Upload File" required />
+						</div>
+						<div class="form-group">
+							<div class="cat">Categories</div>
+							<table class="table">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col">Name</th>
+										<th scope="col">Check</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="categories : ${categories}">
+										<td th:text="${categories.categoryName}"></td>
+										<td><input type="checkbox" th:name="checkbox"
+											th:value="${categories.categoryId}" /></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+
+						<!-- 						<div class="form-group"> -->
+						<!-- 							<div class="cat">Priority</div> -->
+						<!-- 							<table class="table"> -->
+						<!-- 								<thead class="thead-dark"> -->
+						<!-- 									<tr> -->
+						<!-- 										<th scope="col">Name</th> -->
+						<!-- 										<th scope="col">Check</th> -->
+
+						<!-- 									</tr> -->
+						<!-- 								</thead> -->
+						<!-- 								<tbody> -->
+						<!-- 									<tr th:each="priorities : ${priority}"> -->
+						<!-- 										<td th:text="${priorities .priorityName}"></td> -->
+						<!-- 										<td><input type="checkbox" th:name="checkboxPriority" -->
+						<!-- 											th:value="${priorities .priorityId}" /></td> -->
+						<!-- 									</tr> -->
+						<!-- 								</tbody> -->
+						<!-- 							</table> -->
+						<!-- 						</div> -->
+					</div>
+					<span th:utext="${message}" style="position: absolute; left: 45%;"></span>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Save</button>
+				</div>
+				<span th:utext="${message}" style="position: absolute; left: 45%;"></span>
+			</div>
+
+		</form>
+	</div>
+	<!-- s-content
+    ================================================== -->
+	<section class="s-content">
+
+		<div class="row masonry-wrap">
+			<div class="masonry">
+
+				<div class="grid-sizer"></div>
+
+				<div th:each="posts :${post}">
+
+					<article class="masonry__brick entry format-standard"
+						data-aos="fade-up">
+
+						<div class="entry__thumb">
+							<a th:href="@{/openAuthorPost/{postId}(postId=${posts.postId})}"
+								class="entry__thumb-link"> <img
+								th:if="*{posts.data != null}" width="320" height="300"
+								th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(posts.data)}}" />
+							</a>
+						</div>
+
+						<div class="entry__text">
+							<div class="entry__header">
+
+								<div class="entry__date">
+									<a
+										th:href="@{/openAuthorPost/{postId}(postId=${posts.postId})}"
+										th:text="${posts.postCreated}"></a>
+								</div>
+								<h1 class="entry__title">
+									<a
+										th:href="@{/openAuthorPost/{postId}(postId=${posts.postId})}"
+										th:text="${posts.postName}"></a>
+								</h1>
+
+							</div>
+							<div class="entry__excerpt">
+								<p th:text="${posts.postSummary}"></p>
+							</div>
+							<div class="entry__meta">
+								<span class="entry__meta-links"
+									th:each="categories,iterStat : ${posts.category}"> <a
+									th:href="@{/openCategory/{Id}(Id=${categories.categoryId})}"
+									th:text="${categories.categoryName}"></a>
+								</span>
+							</div>
+							<div class="entry__excerpt"
+								th:each="users,iterStat : ${posts.user}">
+								<p th:inline="text">Posted by: [[${users.name}]]</p>
+							</div>
+						</div>
+
+					</article>
+				</div>
+			</div>
+			<!-- end popular_posts -->
+		</div>
+	</section>
+	<script type="text/javascript">
+	tinymce.init({
+    selector: '#myTextarea'
+});</script>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+</body>
+
+</html>

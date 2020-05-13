@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<!--- basic page needs
+    ================================================== -->
+<meta charset="utf-8">
+<title>Philosophy</title>
+<meta name="description" content="">
+<meta name="author" content="">
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<script
+	src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script"
+	rel="stylesheet">
+<link
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<!-- mobile specific metas
+    ================================================== -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+    ================================================== -->
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/vendor.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/login.css">
+<!-- script
+    ================================================== -->
+<script src="js/modernizr.js"></script>
+<script src="js/pace.min.js"></script>
+
+<!-- favicons
+    ================================================== -->
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+</head>
+
+<body id="top">
+	<section class="s-pageheader s-pageheader--home">
+
+		<header class="header">
+			<div class="header__content row">
+
+				<div class="header__logo">
+					<a class="logo" href="/adminHome"
+						style="font-family: Segoe Print; color: white; font-size: 30px; text-decoration: none;">
+						MyBlog </a>
+				</div>
+
+				<a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+				<nav class="header__nav-wrap">
+
+					<h2 class="header__nav-heading h6">Site Navigation</h2>
+
+					<ul class="header__nav">
+						<li class="current"><a href="/" title="">Home</a></li>
+						<li class="has-children"><a href="#0" title="">Categories</a>
+							<ul class="sub-menu">
+								<li><a href="category.html">Lifestyle</a></li>
+								<li><a href="category.html">Health</a></li>
+								<li><a href="category.html">Family</a></li>
+								<li><a href="category.html">Management</a></li>
+								<li><a href="category.html">Travel</a></li>
+								<li><a href="category.html">Work</a></li>
+							</ul></li>
+						<li><a href="/login" title="">Log in</a></li>
+					</ul>
+
+					<a href="#0" title="Close Menu"
+						class="header__overlay-close close-mobile-menu">Close</a>
+
+				</nav>
+				<!-- end header__nav-wrap -->
+
+			</div>
+			<!-- header-content -->
+		</header>
+		<!-- header -->
+
+		<div class="row">
+			<div class="col-md-5 mx-auto">
+				<div id="second">
+					<div class="myform form ">
+						<div class="logo mb-3">
+							<div class="col-md-12 text-center">
+								<h1>Signup</h1>
+							</div>
+						</div>
+						<form autocomplete="off" action="#" th:action="@{/register}" enctype="multipart/form-data"
+							th:object="${user}" method="post" class="form-signin" role="form">
+							<div class="form-group">
+								<label for="exampleInputEmail1">First Name</label> <input
+									type="text" th:field="*{name}" placeholder="Enter FirstName"
+									aria-describedby="emailHelp" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Last Name</label> <input
+									type="text" th:field="*{lastName}" placeholder="Last Name"
+									aria-describedby="emailHelp" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Email</label> <input type="text"
+									aria-describedby="emailHelp" th:field="*{email}"
+									placeholder="Enter Email" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Password</label> <input
+									type="password" th:field="*{password}" placeholder="Password"
+									aria-describedby="emailHelp" class="form-control" />
+							</div>
+								<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Icon:</label>
+							<input class="btn btn-primary btn-sm" type="file" name="file" />
+						</div>
+							<div class="col-md-12 text-center mb-3">
+								<button type="submit"
+									class=" btn btn-block mybtn btn-primary tx-tfm">Submit</button>
+							</div>
+							<div class="col-md-12 ">
+								<div class="form-group">
+									<p class="text-center">
+										<a href="/login" id="signin">Already have an account?</a>
+									</p>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+</body>
+
+</html>
