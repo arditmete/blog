@@ -80,14 +80,13 @@ public class CategoryController {
 
 		return "editCategory";
 	}
-
+//
 	@RequestMapping(value = "/edit/{categoryId}", params = "update")
 	public String updateCategory(Category category, @RequestParam("categoryEditName") String categoryEditName,
 			@RequestParam("update") String categoryId) {
 		category = categoryRepository.getOne(categoryId);
 		category.setCategoryName(categoryEditName);
 		categoryRepository.save(category);
-
 		return "redirect:/adminHome";
 	}
 
